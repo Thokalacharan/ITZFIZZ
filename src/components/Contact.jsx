@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, MessageSquare, ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);

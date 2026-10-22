@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { ArrowDown, Gauge, Zap, Flame } from 'lucide-react';
+import { ArrowDown, Gauge, Flame } from 'lucide-react';
 import Stats from './Stats';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -16,7 +16,6 @@ export default function Hero() {
   const subtitleRef = useRef(null);
   const ctaRef = useRef(null);
   const statsRef = useRef(null);
-  const lettersRef = useRef([]);
 
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -27,14 +26,8 @@ export default function Hero() {
     { text: 'ITZFIZZ', chars: ['I', 'T', 'Z', 'F', 'I', 'Z', 'Z'] }
   ];
 
-  lettersRef.current = [];
-  const addLetterRef = (el) => {
-    if (el && !lettersRef.current.includes(el)) {
-      lettersRef.current.push(el);
-    }
-  };
-
   useGSAP(() => {
+    const letters = gsap.utils.toArray('.value-letter', containerRef.current);
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReducedMotion) {
@@ -43,7 +36,7 @@ export default function Hero() {
         y: 0,
         x: 0,
       });
-      lettersRef.current.forEach(letter => {
+      letters.forEach(letter => {
         if (letter) {
           letter.style.opacity = '1';
           letter.style.color = '#ffffff';
@@ -69,7 +62,7 @@ export default function Hero() {
 
     // Letter-spaced headline reveal with stagger and subtle upward movement
     introTl.fromTo(
-      lettersRef.current,
+      letters,
       { opacity: 0, y: 24, scale: 0.95 },
       {
         opacity: 0.35,
@@ -153,10 +146,10 @@ export default function Hero() {
           }
 
           // Progressively illuminate headline letters
-          const totalLetters = lettersRef.current.length;
+          const totalLetters = letters.length;
           const lettersToIlluminate = Math.floor(progress * totalLetters * 1.05);
 
-          lettersRef.current.forEach((letter, idx) => {
+          letters.forEach((letter, idx) => {
             if (!letter) return;
             if (idx <= lettersToIlluminate) {
               letter.style.opacity = '1';
@@ -224,8 +217,7 @@ export default function Hero() {
                 {group.chars.map((char, cIdx) => (
                   <span
                     key={cIdx}
-                    ref={addLetterRef}
-                    className="inline-block transition-all duration-150 text-white/35 will-change-transform"
+                    className="value-letter inline-block transition-all duration-150 text-white/35 will-change-transform"
                   >
                     {char}
                   </span>
@@ -310,7 +302,7 @@ export default function Hero() {
               style={{ width: 'clamp(130px, 18vw, 220px)' }}
             >
               <img
-                src="assets/car.png"
+                src="/assets/car.png"
                 alt="Itzfizz Digital Supercar — McLaren 720S high-performance automotive visual"
                 className="w-full h-auto object-contain filter drop-shadow-[0_12px_20px_rgba(0,0,0,0.9)]"
                 loading="eager"

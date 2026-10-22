@@ -1,7 +1,7 @@
 import React from 'react';
 import { Award, Zap, ShieldCheck } from 'lucide-react';
 
-export const statsData = [
+const statsData = [
   {
     id: 'stat-satisfaction',
     value: '95%',

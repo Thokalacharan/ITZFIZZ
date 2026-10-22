@@ -1,6 +1,8 @@
 import React from 'react';
 import { Zap, ArrowUp } from 'lucide-react';
 
+const currentYear = new Date().getFullYear();
+
 export default function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -75,7 +77,7 @@ export default function Footer() {
         {/* Bottom Credits & Status */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-gray-500">
           <div>
-            © {new Date().getFullYear()} Itzfizz Digital. All rights reserved. Web Development Internship Assignment.
+            © {currentYear} Itzfizz Digital. All rights reserved. Web Development Internship Assignment.
           </div>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-brand-lime shadow-[0_0_8px_rgba(204,255,0,0.8)]" />
